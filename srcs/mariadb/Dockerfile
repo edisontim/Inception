@@ -10,7 +10,7 @@ RUN apt-get install vim -y
 
 COPY ./setup.sh /
 COPY ./my.cnf /etc/mysql
-COPY ./wordpress.sql /
+COPY ./init_file / 
 EXPOSE 3306
 
 CMD bash ./setup.sh

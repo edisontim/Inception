@@ -7,7 +7,7 @@ services:
     build:
       context: ./srcs/nginx
     volumes:
-      - /home/tedison/data/volume_phpnginx:/var/www/html
+      - "php_nginx:/var/www/html"
     restart: always
     ports:
       - "8080:80"
@@ -15,7 +15,7 @@ services:
     networks:
       - my_net
     depends_on:
-      - php
+      - mariadb
     env_file:
       - .env
 
@@ -41,7 +41,7 @@ services:
       WORDPRESS_DB_PASSWORD: root
       WORDPRESS_DB_HOST: mariadb:3306
     volumes:
-      - "db_volume:/var/lib/mysql/wordpress"
+      - "db_volume:/var/lib/mysql/"
     restart: always
     networks:
       - my_net
@@ -56,10 +56,10 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/tedison/data/db_volume
+      device: /Users/tedison/Documents/data/db_volume
   php_nginx:
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/tedison/data/volume_phpnginx
+      device: /Users/tedison/Documents/data/volume_phpnginx
