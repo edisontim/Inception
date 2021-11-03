@@ -74,9 +74,9 @@ Most of the configurations in this file I didn't have to modify, so I don't have
 
 wordpress.conf is in the sites-enabled directory, which basically tells NGINX that this wordpress site is "enabled" and how it should behave.
 
-This file is way more interesting. First off, you have two server blocks. This tells NGINX that your have two servers running, one that listens to port 80, you can also uncomment the second listen to have IPv6 enabled for that server. The server name is local in my case so 127.0.0.1 and the only thing that this server does is redirect you to the second server, which is the HTTPs one.
+This file is way more interesting. First off, you have two server blocks. This tells NGINX that your have two sockets opened to connections, one that listens to port 80, you can also uncomment the second listen to have IPv6 enabled for that socket. The server name is local in my case so 127.0.0.1 and the only thing that this socket does is redirect you to the second socket, which is the HTTPs one.
 
-The second server is listening to the 443 port, which is the one typically used for ssl connections. We need to specify that ssl is on, and that the protocol used is TLSv1.2 or TLSv1.3. We also need to tell where the certificate created earlier by openssl is in our container so that NGINX can go get it. Next, we need to tell NGINX what the index will be. Programmers usually call that page index.htm(l) but it can also be (like for a Wordpress website) a php page, so we add index.php.
+The second socket is listening to the 443 port, which is the one typically used for ssl connections. We need to specify that ssl is on, and that the protocol used is TLSv1.2 or TLSv1.3. We also need to tell where the certificate created earlier by openssl is in our container so that NGINX can go get it. Next, we need to tell NGINX what the index will be. Programmers usually call that page index.htm(l) but it can also be (like for a Wordpress website) a php page, so we add index.php.
 
 Next we tell NGINX that the root of our website will be located in that specific folder. That folder is the same one that is being shared by our host via our Volume. You will place a downloaded version of Wordpress in that folder in your host, so NGINX, as well as php-fpm has access to theses files.
 
